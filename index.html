@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolirana</title>
+    
+    <!--JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <!-- Archivo Css-->
+    <link rel="stylesheet" href="Css/bolirana.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+       // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAzaRAh0grhYZ6z2bJVo57M6f8XdvXKFyQ",
+            authDomain: "fir-bolirana.firebaseapp.com",
+            databaseURL: "https://fir-bolirana-default-rtdb.firebaseio.com",
+            projectId: "fir-bolirana",
+            storageBucket: "fir-bolirana.appspot.com",
+            messagingSenderId: "299356886299",
+            appId: "1:299356886299:web:600b826d527c509040afbe"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+<body>
+    <div class="modal-dialog text-center">
+        <!--Ajustado al tamaño de la pantalla (en forma de columna)-->
+        <div class="col-sm-8 screen">
+            <div class="modal-content">
+                <form method="POST" action="guardar.php">
+                    <!--Tamaño de la imagen-->
+                <div class="col-12 digital-img">
+                    <img src="arcada_2.png">
+                </div>
+                <div class="col-12 titulos  bg-body rounded">
+                    <h2>Arcade Interactivo</h2>
+                    <h3>Bolirana</h3>
+                </div>
+                <div class="col-12">
+                    <!--Opciones de codigos en formato form-->
+                    <h4 class=jugador>Jugador 1</h4>
+                    <p class=puntaje name='puntaje_1' id="puntaje_1"></p>
+                    <h4 class=jugador>Jugador 2</h4>
+                    <p class=puntaje name=puntaje_2 id="puntaje_2"></p>
+                      
+                </div>
+                
+                <div class="col-12 btn">
+                    <button type="button" id="Reiniciar" class="btn btn-info" onclick="writeUserData()"><i class="fas fa-redo-alt"></i>    Reiniciar</button>
+
+                </div>
+                   
+                <div class="col-12 footer">
+                    <footer>
+                        <p class="text-muted">©Universidad Surcolombiana</p>
+                    </footer>
+
+                </div>
+                </form>
+            </div>
+            
+        </div>
+        
+
+    </div>
+    <div class="burbujas">
+        <div class="burbuja"></div>
+        <div class="burbuja"></div>
+        <div class="burbuja"></div>
+        <div class="burbuja"></div>
+        <div class="burbuja"></div>
+    </div>
+
+    <script>
+        var updateStarCount = function(element, value){
+                element.textContent = value;
+            };
+            var starCountRef = firebase.database().ref('/puntaje/puntaje_1');
+            starCountRef.on('value', function(snapshot) {
+                var iniciando=snapshot.val();
+                updateStarCount(postElement1, iniciando);
+            })
+            var postElement1 = document.getElementById("puntaje_1");
+
+            var updateStarCount = function(element, value){
+                element.textContent = value;
+            };
+            var starCountRef = firebase.database().ref('/puntaje/puntaje_2');
+            starCountRef.on('value', function(snapshot) {
+                var iniciando=snapshot.val();
+                updateStarCount(postElement2, iniciando);
+            })
+            var postElement2 = document.getElementById("puntaje_2");
+
+            var updateStarCount = function(element, value){
+                element.textContent = value;
+            };
+            var starCountRef = firebase.database().ref('/puntaje/Round');
+            starCountRef.on('value', function(snapshot) {
+                var iniciando=snapshot.val();
+                updateStarCount(postElement3, iniciando);
+            })
+            var postElement3 = document.getElementById("Round");
+
+            function writeUserData(value) {
+                if (postElement2 < postElement1){
+                    alert('El jugador 2 es el ganador');
+                }
+            firebase.database().ref('puntaje').set({
+                    puntaje_1:0,
+                    puntaje_2:0,
+                });
+}
+
+    </script>
+
+   
+</body>
+</html>
